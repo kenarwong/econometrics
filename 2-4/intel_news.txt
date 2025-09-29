@@ -1,0 +1,17 @@
+Intel Reportedly Explores Investment Talks With Apple, Foundry Seen as Key
+
+According to Bloomberg, sources say Intel has approached Apple to explore a possible investment and ways to deepen cooperation. The reported discussions are described as early-stage and may not result in an agreement. The report, citing sources, also notes that Intel has contacted other companies to explore potential investment and collaboration deals.
+
+As the report indicates, an agreement with Apple—a company that relied on Intel chips for years before moving to its own designs—would represent another endorsement of Intel’s turnaround push. Apple used Intel processors in its Macs for years before shifting to its own chips starting in 2020, and in 2019 it also acquired most of Intel’s modem business.
+
+However, Business Korea notes that Apple is unlikely to abandon its in-house chip designs and return to Intel CPUs. Instead, Intel’s value lies in its long-developed technology IP and potential foundry collaboration.
+
+As highlighted by Business Korea, Apple depends on TSMC for chipset production and Foxconn for assembly in Taiwan, China, and India. This structure has raised concerns that profitability could be hit by tariffs introduced under Donald Trump and by pressure for greater U.S.-based investment and manufacturing.
+
+MarketWatch, citing analysts, indicates that Apple’s interest in Intel would likely center on its foundry business as a secondary chipmaking source. The outlet also notes that, given Apple’s significant pledge to expand U.S. manufacturing, supporting Intel could improve Apple’s standing with Washington. Meanwhile, Investopedia points out that a deal with Apple—particularly if it included foundry commitments—could further bolster Intel.
+
+Apple’s U.S. Commitments and Intel’s Backers
+
+As noted by Bloomberg, Apple announced at a White House event in August that it would increase its U.S. initiatives to $600 billion over four years, up from its prior $500 billion pledge.
+
+Meanwhile, Business Korea points out that Intel’s search for investment has already drawn major backers. The U.S. government secured nearly 10% of Intel with $10 billion in CHIPS Act funding. NVIDIA acquired a 4% stake with a $5 billion investment, while Japan’s SoftBank—through its “Stargate” partnership with OpenAI and Oracle—is committing $2 billion for about 2%.
