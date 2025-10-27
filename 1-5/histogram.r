@@ -20,6 +20,6 @@ hist(Prices_MSFT, main="MSFT Price Distribution", xlab="Price", ylab="Frequency"
 # Not useful here because we have only two IDs with equal amounts of data
 
 ID = CSV[,3]
-Count = table(ID) # can use text data counts
+Count = table(ID) # use for text data counts
 Freq = Count/sum(Count)
 plot(Freq, main="ID Distribution", xlab="ID", ylab="Frequency", col="blue", border="black")
