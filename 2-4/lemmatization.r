@@ -9,7 +9,8 @@ rPath = "/mnt/store/learn/econometrics/code/2-4/"
 
 # Load the model
 udmodel_file <- "english-ewt-ud-2.5-191206.udpipe"
-udmodel_english <- udpipe_load_model(udmodel_file)
+filePath = paste0(rPath, udmodel_file)
+udmodel_english <- udpipe_load_model(filePath)
 
 text = c("The quick brown fox jumps over the lazy dog.",
          "I am learning Natural Language Processing.",

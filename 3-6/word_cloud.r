@@ -5,8 +5,11 @@ library(jiebaR)
 library(wordcloud2)
 
 rFile = "251025_ptt.txt"
-doc = readLines(rFile)
-jieba = worker(stop_word = "stop-zh-tw-withpunc.txt")
+rStopWordFile = "stop-zh-tw-withpunc.txt"
+rPath = "/mnt/store/learn/econometrics/code/3-6"
+rFilepath = file.path(rPath, rFile)
+doc = readLines(rFilepath)
+jieba = worker(stop_word = file.path(rPath, rStopWordFile)) 
 
 wordseg = segment(doc, jieba)
 head(wordseg, 50) # word segmentation results
@@ -32,4 +35,5 @@ letterCloud(TF.order, word = "TSMC", color = "random-light")
 # Opens browser and takes time
 # Execute in R command line, and after browser opens, refresh
 figure = "taiwan.png"
-wordcloud2(TF.order, figPath = figure, size = 1.5, backgroundColor = "white")
+figPath = file.path(rPath, figure)
+wordcloud2(TF.order, figPath = figPath, size = 1.5, backgroundColor = "white")

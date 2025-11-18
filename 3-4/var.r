@@ -1,9 +1,11 @@
 library(openxlsx)
 library(fExtremes)
 rFile = "VaR.xlsx"
+rPath = "/mnt/store/learn/econometrics/code/3-4/"
+rFullPath = file.path(rPath, rFile)
 Sheet = "VaR"
 
-XLSX = read.xlsx(rFile, sheet = Sheet)
+XLSX = read.xlsx(rFullPath, sheet = Sheet)
 head(XLSX)
 
 # Convert frequency table (VaR.csv) back to raw data (data.csv)
@@ -14,4 +16,4 @@ for(i in 1:nrow(XLSX)){
 head(Data)
 
 VaR = VaR(Data, alpha = 0.05)     # alpha = 5% VaR
-VaR
+print(VaR)
