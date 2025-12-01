@@ -79,16 +79,23 @@ for (tk in ticker) {
     kurt <- moments::kurtosis(vals)
     excess_kurt <- kurt - 3
     jb_manual <- (n/6) * (skew^2 + (excess_kurt^2)/4)
+    mean <- mean(vals)
+    median <- median(vals)
+    sd <- sd(vals)
+    # create extra lines of text
     extra_lines <- c(sprintf("n = %d", n),
+                     sprintf("mean = %.6f", mean),
+                     sprintf("median = %.6f", median),
+                     sprintf("sd = %.6f", sd),
                      sprintf("skewness = %.6f", skew),
                      sprintf("kurtosis = %.6f", kurt),
                      sprintf("excess kurtosis = %.6f", excess_kurt),
                      sprintf("JB (manual) = %.6f", jb_manual))
-    all_lines <- c(jb_text, "", extra_lines)
+    all_lines <- c(jb_text, extra_lines)
     # place text on the blank plot, left-justified
     # for each line in all_lines, write it on the plot
     for (i in seq_along(all_lines)) {
-      text(x = 0, y = 1 - (i - 1) * 0.1,
+      text(x = 0, y = 1 - (i - 1) * 0.05,
            labels = all_lines[i],
            adj = c(0, 1),
            cex = 0.8)
@@ -151,6 +158,28 @@ for (tk in ticker) {
        ylab = "Frequency",
        col = "lightgray",
        border = "black")
+
+  # Draw normal distribution curve over histogram
+  mu <- mean(vals)
+  sigma <- sd(vals)
+  x_seq <- seq(min(vals), max(vals), length.out = 100)
+  y_seq <- dnorm(x_seq, mean = mu, sd = sigma)
+  # Scale y_seq to match histogram
+  y_seq_scaled <- y_seq * length(vals) * (max(vals) - min(vals)) / num_breaks
+  lines(x_seq, y_seq_scaled, col = "purple", lwd = 2)
+
+  # Draw vertical lines for mean and +/- 1,2,3 standard deviations
+  abline(v = mu, col = "blue", lwd = 2, lty = 1)  # mean
+  abline(v = mu + sigma, col = "blue", lwd = 2, lty = 2)  # +1 SD
+  abline(v = mu - sigma, col = "blue", lwd = 2, lty = 2)  # -1 SD
+  abline(v = mu + 2*sigma, col = "blue", lwd = 2, lty = 3)  # +2 SD
+  abline(v = mu - 2*sigma, col = "blue", lwd = 2, lty = 3)  # -2 SD
+  abline(v = mu + 3*sigma, col = "blue", lwd = 2, lty = 4)  # +3 SD
+  abline(v = mu - 3*sigma, col = "blue", lwd = 2, lty = 4)  # -3 SD
+
+  # Draw vertical line for median
+  median <- median(vals)
+  abline(v = median, col = "green", lwd = 3, lty = 3)  # median
 }
 
 dev.off()
