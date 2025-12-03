@@ -2,6 +2,7 @@ library(tidyverse)
 library(tidyfinance)
 library(scales)
 library(ggrepel)
+library(AER)
 
 ### Data Preparation ###
 rm(list = ls())
@@ -129,6 +130,27 @@ estimate_capm <- function(data) {
   )
 }
 
+# Regression function for CAPM with White and Newey-West standard errors
+estimate_capm_se <- function(data) {
+  # Empirical model:
+  #   ret_excess_it = alpha_i + beta_i * mkt_excess_t + epsilon_it
+  fit <- lm("ret_excess ~ mkt_excess", data = data)
+
+  # Calculate White heteroskedasticity-consistent standard errors
+  whte <- coeftest(fit, vcov = vcovHC(fit, type = "HC0"))
+
+  # Calculate Newey-West standard errors
+  nwse <- coeftest(fit, vcov = NeweyWest(fit, prewhite = FALSE, lag = 4))
+
+  tibble(
+    coefficient = c("alpha", "beta"),
+    estimate = coefficients(fit),
+    t_statistic = summary(fit)$coefficients[, "t value"],
+    t_statistic_white = whte[, "t value"],
+    t_statistic_newey_west = nwse[, "t value"]
+  )
+}
+
 # Leverage nested dataframes
 #   To efficiently run these regressions for all assets simultaneously
 # map() function applies our regression to each nested dataset
@@ -136,21 +158,26 @@ estimate_capm <- function(data) {
 #   Giving us a clean data frame of assets and their corresponding betas
 capm_results <- returns_excess_monthly |>
   nest(data = -symbol) |>
-  mutate(capm = map(data, estimate_capm)) |>
+  mutate(capm = map(data, estimate_capm_se)) |>
   unnest(capm) |>
-  select(symbol, coefficient, estimate, t_statistic)
+  select(symbol,
+         coefficient,
+         estimate,
+         t_statistic_white,
+         t_statistic_newey_west)
+
 
 # Plot alphas
 # Make labels really small for better visibility
 capm_results |>
   filter(coefficient == "alpha") |>
-  mutate(is_significant = abs(t_statistic) >= 1.96) |>
+  mutate(is_significant = abs(t_statistic_newey_west) >= 1.96) |>
   ggplot(aes(x = estimate, y = fct_reorder(symbol, estimate),
              fill = is_significant)) +
   geom_col() +
   scale_fill_manual(
     values = c("TRUE" = "steelblue", "FALSE" = "lightgray"),
-    breaks = c("TRUE", "FALSE"),                         # ensure TRUE shows first
+    breaks = c("TRUE", "FALSE"),
     labels = c("Significant", "Not significant")
   ) +
   labs(
@@ -159,9 +186,9 @@ capm_results |>
     fill = "Significant at 95%?",
     title = paste("CAPM Asset Alphas -", index, "Constituents")
   ) +
-  theme_minimal(base_size = 10) +                   # base font size for the plot
+  theme_minimal(base_size = 10) +
   theme(
-    axis.text.y = element_text(size = 3),           # keep symbol labels small
+    axis.text.y = element_text(size = 3),
     axis.title = element_text(size = 10),
     plot.title = element_text(size = 12, face = "bold"),
     legend.title = element_text(size = 9),
@@ -170,5 +197,7 @@ capm_results |>
   )
 
 # Save plot
-ggsave(file.path(plots_folder, "capm_alphas.png"),
-       width = 10, height = 16, dpi = 300, units = "in")
+ggsave(
+  filename = file.path(plots_folder, 
+                       paste0("capm_alphas_se_correction.png")),
+  width = 10, height = 16, dpi = 300, units = "in")
