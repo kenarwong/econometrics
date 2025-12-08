@@ -1,0 +1,24 @@
+Y,YCode,Gender,GenderCode,Income
+No Investments,0,F,0,46000
+No Investments,0,M,1,73500
+Only Stocks,1,F,0,23500
+Only Mutual Funds,2,M,1,23510
+Only Mutual Funds,2,F,0,24470
+Only Stocks,1,M,1,46602
+Only Stocks,1,M,1,75305
+No Investments,0,M,1,20035
+Both Stocks and Mutual Funds,3,M,1,20067
+Only Mutual Funds,2,M,1,35506
+Only Mutual Funds,2,F,0,30013
+No Investments,0,F,0,73500
+Only Mutual Funds,2,M,1,23500
+Only Mutual Funds,2,F,0,23510
+Only Stocks,1,M,1,24470
+Only Mutual Funds,2,F,0,20067
+No Investments,0,F,0,25506
+No Investments,0,M,1,20013
+Only Stocks,1,M,1,73500
+Only Stocks,1,M,1,23500
+No Investments,0,M,1,46000
+No Investments,0,M,1,73500
+Only Stocks,1,F,0,89020

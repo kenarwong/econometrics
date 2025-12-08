@@ -150,7 +150,8 @@ capm_results |>
   geom_col() +
   scale_fill_manual(
     values = c("TRUE" = "steelblue", "FALSE" = "lightgray"),
-    breaks = c("TRUE", "FALSE"),                         # ensure TRUE shows first
+    # ensure TRUE shows first in legend
+    breaks = c("TRUE", "FALSE"),
     labels = c("Significant", "Not significant")
   ) +
   labs(
@@ -159,9 +160,11 @@ capm_results |>
     fill = "Significant at 95%?",
     title = paste("CAPM Asset Alphas -", index, "Constituents")
   ) +
-  theme_minimal(base_size = 10) +                   # base font size for the plot
+  # base font size for the plot
+  theme_minimal(base_size = 10) +
   theme(
-    axis.text.y = element_text(size = 3),           # keep symbol labels small
+    # keep symbol labels small
+    axis.text.y = element_text(size = 3),
     axis.title = element_text(size = 10),
     plot.title = element_text(size = 12, face = "bold"),
     legend.title = element_text(size = 9),
